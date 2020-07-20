@@ -19,12 +19,15 @@ export class OrderRepository {
     }
 
     if (params.term) {
-      query = query.where(query => {
-        return query
-          .where('description', 'ilike', `%${params.term}%`)
-          .orWhere('quantity', 'ilike', `%${params.term}%`)
-          .orWhere('value', 'ilike', `%${params.term}%`);
-      });
+      if (typeof params.term === 'number') {
+        query = query.where(query => {
+          return query.where('quantity', `${params.term}`).orWhere('value', `${params.term}`);
+        });
+      } else {
+        query = query.where(query => {
+          return query.where('description', 'ilike', `%${params.term}%`);
+        });
+      }
     }
 
     return query;

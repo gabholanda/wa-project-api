@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthRequired } from 'modules/common/guards/token';
 
@@ -25,11 +25,5 @@ export class OrderController {
   @ApiResponse({ status: 200, type: Order })
   public async save(@Body() model: OrderSaveValidator) {
     return this.orderService.save(model);
-  }
-
-  @Get(':orderId')
-  @ApiResponse({ status: 200, type: Order })
-  public async details(@Param('orderId', ParseIntPipe) orderId: number) {
-    return this.orderRepository.findById(orderId);
   }
 }
