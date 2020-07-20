@@ -30,14 +30,6 @@ export class OrderRepository {
     return query;
   }
 
-  public async count(transaction?: Transaction): Promise<Number> {
-    const result: any = await Order.query(transaction)
-      .count('id as count')
-      .first();
-
-    return Number(result.count);
-  }
-
   public async findById(id: number, transaction?: Transaction): Promise<Order> {
     return Order.query(transaction)
       .where({ id })
@@ -50,11 +42,5 @@ export class OrderRepository {
 
   public async update(model: Order, transaction?: Transaction): Promise<Order> {
     return Order.query(transaction).updateAndFetchById(model.id, <Order>model);
-  }
-
-  public async remove(id: number, transaction?: Transaction): Promise<void> {
-    await Order.query(transaction)
-      .del()
-      .where({ id });
   }
 }

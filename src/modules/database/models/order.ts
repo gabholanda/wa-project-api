@@ -10,4 +10,8 @@ export class Order extends Model {
   public quantity: number;
   @ApiProperty({ type: 'number' })
   public value: number;
+
+  public static get tableName(): string {
+    return 'Order';
+  }
 }
